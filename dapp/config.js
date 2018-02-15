@@ -108,6 +108,10 @@ if (isElectron) {
 var txDefault = {
   ethereumNodes : [
     {
+      url : "http://localhost:8545",
+      name: "Local node"
+    },
+    {
       url : "https://mainnet.infura.io:443",
       name: "Remote Mainnet"
     },
@@ -119,10 +123,6 @@ var txDefault = {
       url : "https://kovan.infura.io:443",
       name: "Remote Kovan"
     },
-    {
-      url : "http://localhost:8545",
-      name: "Local node"
-    }
   ],
   walletFactoryAddresses: {
     'mainnet': {

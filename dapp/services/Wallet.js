@@ -50,15 +50,8 @@
 
       wallet.getGasPrice = function () {
         return $q(
-          function(resolve, reject){
-            $http
-              .get('https://ethgasstation.info/json/ethgasAPI.json')
-              .then(
-                function(response) {
-                  resolve((response.data.safeLow / 10) * 1e9)
-                },
-                reject
-              )
+          function(resolve, reject) {
+            return resolve(txDefault.gasPrice);
           }
         );
       };
@@ -171,38 +164,11 @@
       };
 
       wallet.updateGasPrice = function (cb) {
-        if (Connection.isConnected) {
-          wallet.getGasPrice().then(
-            function (gasPrice) {
-              wallet.txParams.gasPrice = gasPrice;
-              cb(null, gasPrice);
-            },
-            cb
-          );
-        }
-        else {
-          cb(null, txDefault.gasPrice);
-        }
+        cb(null, txDefault.gasPrice);
       };
 
       wallet.updateGasLimit = function (cb) {
-        if (Connection.isConnected) {
-          return Web3Service.web3.eth.getBlock.request(
-            "latest",
-            function (e, block) {
-              if (e) {
-                cb(e);
-              }
-              else {
-                wallet.txParams.gasLimit = Math.floor(block.gasLimit*0.9);
-                cb(null, block.gasLimit);
-              }
-            }
-          );
-        }
-        else {
-          cb(null, txDefault.gasLimit);
-        }
+       cb(null, txDefault.gasLimit);
       };
 
       // Init txParams
